@@ -1,9 +1,4 @@
 /* MOBILE STYLES */
-
-.mobile {
-    display: none;
-}
-
 .hamburger {
     cursor: pointer;
     padding: 0 .5em;
@@ -16,7 +11,6 @@
     opacity: .5;
 }
 
-
 .bar {
     background-color: rgba(0, 0, 0, 0.5);
     width: 30px;
@@ -25,66 +19,40 @@
     transition: 400ms ease;
 }
 
-.nav__form {
-    display: flex;
-    flex-direction: column;
-}
-
-.hamburger__menu {
+.mobile__dropdown {
     position: absolute;
-    right: 0;
-    top: calc(100% + .75rem);
-    width: 300px;
+    top: 10vh;
+    left: 0;
     
-    background-color: white;
-    background-color: #F1F1F1;
-    color: #777;
-    padding: 0.75rem;
-    border-radius: .25rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    min-height: 90vh;
+    background-color: var(--grey-bg);
+    
     opacity: 0;
     pointer-events: none;
     
-    transform: translateY(-10px);
-    transition: opacity 200ms ease-in-out, transform 200ms ease-in-out;
+    transform: translateX(-50px);
+    transition: opacity 400ms ease-in-out, transform 400ms ease-in-out;
 }
-.dropdown.active > .hamburger + .hamburger__menu {
-    transform: translateY(0);
+.mobile__dropdown.active {
+    transform: translateX(0);
     opacity: 1;
     pointer-events: auto;
 }
 
-.hamburger__menu > input {
-    font-size: inherit;
+.mobile__items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
-.mobile__nav__link {
+.mobile__item {
     width: 100%;
-    border: none;
-    background: none;
-    color: #777;
-    text-decoration: none;
-    font-size: inherit;
-    padding: .25rem 0;
-    text-align: left;
-    font-weight: bold;
-    cursor: pointer;
+    padding: .5rem 2rem;
 }
-.mobile__nav__link:hover, .sub__menu.active > .mobile__nav__link {
-    color: rgb(19, 19, 124);
-}
-
-
-.sub__menu__item {
-    height: 0px;
-    overflow: hidden;
-}
-
-.sub__menu.active > .mobile__nav__link + .sub__menu__item {
-    height: auto;
-    margin: 0 0 1rem 1rem;;
-}
-
 /* END OF MOBILE STYLES */
 
 
@@ -93,15 +61,6 @@
 /* MEDIA QUERIES */
 
 @media (max-width: 900px) {
-    
-    .desktop {
-        display: none;
-    }
-
-    .mobile {
-        display: block;
-    }
-    
     .hamburger.active .bar:nth-child(2) {
         opacity: 0;
     }
@@ -114,8 +73,8 @@
     }
 }
 
-@media (min-width:430px) {
-    .hamburger__menu > input {
+@media (min-width:900px) {
+    .mobile {
         display: none;
     }
 }

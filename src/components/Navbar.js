@@ -1,80 +1,40 @@
 import './Navbar.css';
+import { useState } from 'react';
 import Hamburger from './Hamburger';
-// import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { navItems } from './Navitems';
+import Dropdown from './Dropdown';
 
 export default function Navbar(props){
+    const [drop, setDrop] = useState(false);
+    const [itemKey, setItemKey] = useState(0);
+
+    function toggleDropdown(e){
+        setDrop(true);
+        setItemKey(Number(e.target.id));
+    }
     return (
-      <header className="header flex-row">
-        <div className="logo">
-            <a className="logo nav__link" href="#">
-                The-<span className="blue-txt">branding</span>-champs
-            </a>
-        </div>
-
-        <nav className="nav flex-row">
-            <div className="flex-row desktop">
-                <div className="dropdown" data-dropdown>
-                    <button className="nav__link" data-dropdown-button>Information</button>
-                    <div className='dropdown__menu info-grid'>
-                        <div className="menu__item">
-                            <div className='dropdown__heading'>Free Tutorials</div>
-                            <div className='dropdown__links'>
-                                <a href='#' className='nav__link'>All</a>
-                                <a href='#' className='nav__link'>Latest</a>
-                                <a href='#' className='nav__link'>Popular</a>
-                            </div>
-                        </div>
-                        <div className="menu__item">
-                            <div className='dropdown__heading'>Courses</div>
-                            <div className='dropdown__links'>
-                                <a href='#' className='nav__link'>JavaScript</a>
-                                <a href='#' className='nav__link'>CSS</a>
-                                <a href='#' className='nav__link'>React</a>
-                            </div>
-                        </div>
-                        <div className="menu__item">
-                            <div className='dropdown__heading'>Blog</div>
-                            <div className='dropdown__links'>
-                                <a href='#' className='nav__link'>All</a>
-                                <a href='#' className='nav__link'>Latest</a>
-                                <a href='#' className='nav__link'>Popular</a>
-                            </div>
-                        </div>
-                        <div className="menu__item">
-                            <div className='dropdown__heading'>Other</div>
-                            <div className='dropdown__links'>
-                                <a href='#' className='nav__link'>Twitter</a>
-                                <a href='#' className='nav__link'>Newsletter</a>
-                                <a href='#' className='nav__link'>Discord</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <a href='#' className='nav__link'>Pricing</a>
-                
-                <div className="dropdown" data-dropdown>
-                    <button className="nav__link" data-dropdown-button>Login</button>
-                    <div className='dropdown__menu'>
-                        <form className='nav__form'>
-                            <label htmlFor="email">Email</label>
-                            <input type="email" name="email"/>
-                            <label htmlFor="password">Password</label>
-                            <input type="password" name="password"/>
-                            <div className="flex-row form__action">
-                                <button className='form__btn' type='submit'>Login</button>
-                                <a href='#'>Register</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+      <>
+          <nav className="navbar">
+            <div className="navbar__start">
+                <Hamburger />
+                <Link className="nav__logo" to='/home'>
+                    The-<span className="blue-txt">branding</span>-champs
+                </Link>
             </div>
-            <input type="search" placeholder="Search..."></input>
-
-            <Hamburger />
-        </nav>
-      </header>
+            <div className="nav">
+                <ul className="nav__items">
+                    {navItems.map(item =>{
+                        return (
+                            <li className='nav__item' key={item.id} id={item.id} onMouseEnter={toggleDropdown} onMouseLeave={() => setItemKey(0)}>
+                                <Link className={item.cName} id={item.id} to={item.path}>{item.title}</Link>
+                                {<Dropdown dropdown={item.dropdown} dropdownType={item.dropdownType} itemId={item.id} itemKey={itemKey} />}
+                            </li>)
+                    })}
+                </ul>
+                <input type="search" placeholder="Search..."></input>
+            </div>
+          </nav>
+      </>
     )
 }
-
-
